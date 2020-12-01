@@ -7,12 +7,14 @@ import useImage from 'use-image';
 import Navbar from "./components/Navbar";
 import Tools from "./components/Tools";
 import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
 
   return (
     <Router>
       <Navbar style={{ paddingBottom: "500" }} />
+
       <Tools />
     </Router >
   );
