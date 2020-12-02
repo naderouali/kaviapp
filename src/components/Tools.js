@@ -1,8 +1,9 @@
 import React, { useRef, useState } from 'react'
-import { Stage, Layer, Rect, Text, Circle, Line, Image, Shape, Group } from 'react-konva';
+import { Stage, Layer, Rect, Text, Circle, Line, Image, Shape, Group, Transformer } from 'react-konva';
 import ReactDOM from 'react-dom';
 import Portal from './Portal.js';
 import useImage from 'use-image';
+import "../App.css";
 import Modale from './Modale'
 import Mockup from '../medias/iphone.png'
 import beach from '../medias/beach.jpeg'
@@ -10,19 +11,25 @@ import sky from '../medias/sky.jpg'
 import shortid from "shortid";
 
 
-const URLImage = ({ image }) => {
+const IconURL1 = ({ image }) => {
     const [img] = useImage(image.src);
     return (
         <Image
+            draggable
             image={img}
             x={image.x}
             y={image.y}
+            width="100"
+            height="100"
             // I will use offset to set origin to the center of the image
-            offsetX={img ? img.width / 2 : 0}
-            offsetY={img ? img.height / 2 : 0}
+            offsetX={0}
+            // offsetY={img ? img.height / 2 : 0}
+            offsetY={0}
         />
     );
 };
+
+
 
 
 export default function Tools() {
@@ -94,102 +101,216 @@ export default function Tools() {
             {/* <div style={{ backgroundImage: `url(${sky})`, backgroundSize: 200, position: "absolute", top: 200, left: 80, width: 270, height: 550, backgroundRepeat: "no-repeat", opacity: template === 2 ? 1 : 0 }} /> */}
 
 
-            {/* The icons to spawn when drag to canvas */}
-            <img
-                alt="lion"
-                src="https://konvajs.org/assets/lion.png"
-                draggable="true"
-                onDragStart={(e) => {
-                    dragUrl.current = e.target.src;
-                }}
-            />
-            <div
-                onDrop={(e) => {
-                    e.preventDefault();
-                    // register event position
-                    stageRef.current.setPointersPositions(e);
-                    // add image
-                    setImages(
-                        images.concat([
-                            {
-                                ...stageRef.current.getPointerPosition(),
-                                src: dragUrl.current,
-                            },
-                        ])
-                    );
-                }}
-                onDragOver={(e) => e.preventDefault()}
-            >
 
-
-
-
-
-                <div style={{ backgroundColor: "#344073", marginTop: 70, display: "flex", flexDirection: "row" }}>
-
-
-                    <Stage className="test" ref={stageRef} width={232} height={485} style={
-                        {
-                            zIndex: 3000,
-                            border: "2px solid red",
-                            marginLeft: 67,
-                            marginTop: 78,
-                            width: 232,
-                            height: 485
-                        }}>
-
-
-
-
-                        <Layer >
-                            {/* in this layer we spawn the buttons and texts */}
-
-                            {shapes.map(shape => (
-                                <>
+            <div style={{ backgroundColor: "#344073", marginTop: 20 }}>
+                <div>
+                    {/* The icons to spawn when drag to canvas */}
+                    <h2 style={{ position: "absolute", top: 380, right: 493, color: "#fff" }} >Icons</h2>
+                    {/* First icon */}
+                    <img
+                        style={{ position: "absolute", top: 430, right: 500 }}
+                        alt="facebook"
+                        src="https://www.flaticon.com/svg/static/icons/svg/1384/1384005.svg"
+                        height="50"
+                        width="50"
+                        draggable
+                        onDragStart={(e) => {
+                            dragUrl.current = e.target.src;
+                        }}
+                    />
+                    <div
+                        onDrop={(e) => {
+                            e.preventDefault();
+                            // register event position
+                            stageRef.current.setPointersPositions(e);
+                            // add image
+                            setIcons(
+                                icons.concat([
                                     {
-                                        (shape.type === "rect") &&
-                                        <Group
-                                            onDblClick={() => { setInput(shape.content); setEditId(shape.id); setShow(true) }}
-                                            draggable
-                                            onDragStart={handleDragStart}
-                                            onDragEnd={handleDragEnd}
-                                        >
-                                            <Rect
-                                                style={{ position: "absolute" }}
-                                                key={shape.id}
-                                                id={shape.id}
-                                                x={shape.x}
-                                                y={shape.y}
-                                                width={shape.width}
-                                                height={shape.height}
-                                                fill={shape.fill}
-                                                shadowBlur={2}
-                                                scaleX={shape.isDragging ? 1.2 : 1}
-                                                scaleY={shape.isDragging ? 1.2 : 1}
+                                        ...stageRef.current.getPointerPosition(),
+                                        src: dragUrl.current,
+                                    },
+                                ])
+                            );
+                        }}
+                        onDragOver={(e) => e.preventDefault()}
+                        draggable
+                        height="50"
+                        width="50"
+                    >
+                        {/* Second icon */}
+                        <img
+                            style={{ position: "absolute", top: 430, right: 410 }}
+                            alt="music"
+                            src="https://freepngimg.com/thumb/musical_notes/5-2-musical-notes-picture.png"
+                            height="50"
+                            width="50"
+                            draggable
+                            onDragStart={(e) => {
+                                dragUrl.current = e.target.src;
+                            }}
+                        />
+                        <div
+                            onDrop={(e) => {
+                                e.preventDefault();
+                                // register event position
+                                stageRef.current.setPointersPositions(e);
+                                // add image
+                                setIcons(
+                                    icons.concat([
+                                        {
+                                            ...stageRef.current.getPointerPosition(),
+                                            src: dragUrl.current,
+                                        },
+                                    ])
+                                );
+                            }}
+                            onDragOver={(e) => e.preventDefault()}
+                            draggable
+                            height="150"
+                            width="150"
+                        ></div>
+                        {/* Third icon */}
+                        <img
+                            style={{ position: "absolute", top: 430, right: 310 }}
+                            alt="3 lines"
+                            src="https://www.flaticon.com/svg/static/icons/svg/50/50772.svg"
+                            height="50"
+                            width="50"
+                            draggable
+                            onDragStart={(e) => {
+                                dragUrl.current = e.target.src;
+                            }}
+                        />
+                        <div
+                            onDrop={(e) => {
+                                e.preventDefault();
+                                // register event position
+                                stageRef.current.setPointersPositions(e);
+                                // add image
+                                setIcons(
+                                    icons.concat([
+                                        {
+                                            ...stageRef.current.getPointerPosition(),
+                                            src: dragUrl.current,
+                                        },
+                                    ])
+                                );
+                            }}
+                            onDragOver={(e) => e.preventDefault()}
+                            draggable
+                            height="150"
+                            width="150"
+                        ></div>
+                        {/* Fourth icon */}
+                        <img
+                            style={{ position: "absolute", top: 430, right: 210 }}
+                            alt="apple"
+                            src="https://www.flaticon.com/svg/static/icons/svg/1532/1532495.svg"
+                            height="50"
+                            width="50"
+                            draggable
+                            onDragStart={(e) => {
+                                dragUrl.current = e.target.src;
+                            }}
+                        />
+                        <div
+                            onDrop={(e) => {
+                                e.preventDefault();
+                                // register event position
+                                stageRef.current.setPointersPositions(e);
+                                // add image
+                                setIcons(
+                                    icons.concat([
+                                        {
+                                            ...stageRef.current.getPointerPosition(),
+                                            src: dragUrl.current,
+                                        },
+                                    ])
+                                );
+                            }}
+                            onDragOver={(e) => e.preventDefault()}
+                            draggable
+                            height="150"
+                            width="150"
+                        ></div>
 
 
-                                            />
-                                            <Text align="center" text={shape.content} fontSize={18} fill={'black'} x={shape.x} y={shape.y + 6} width={shape.width} height={shape.height} ></Text>
-
-                                        </Group>
-
-                                    }
-
-                                </>
-
-                            ))}
-
-                        </Layer>
 
 
 
-                    </Stage>
+                        {/* <div style={{ backgroundColor: "#344073", marginTop: 70, display: "flex", flexDirection: "row" }}> */}
 
+
+                        <Stage className="test" ref={stageRef} width={232} height={485} style={
+                            {
+                                zIndex: 3000,
+                                border: "2px solid red",
+                                marginLeft: 67,
+                                marginTop: 148,
+                                width: 236,
+                                height: 490
+                            }}>
+
+
+
+
+                            <Layer >
+                                {/* in this layer we spawn the buttons and texts */}
+
+                                {shapes.map(shape => (
+                                    <>
+                                        {
+                                            (shape.type === "rect") &&
+                                            <Group
+                                                onDblClick={() => { setInput(shape.content); setEditId(shape.id); setShow(true) }}
+                                                draggable
+                                                onDragStart={handleDragStart}
+                                                onDragEnd={handleDragEnd}
+                                            >
+                                                <Rect
+                                                    style={{ position: "absolute" }}
+                                                    key={shape.id}
+                                                    id={shape.id}
+                                                    x={shape.x}
+                                                    y={shape.y}
+                                                    width={shape.width}
+                                                    height={shape.height}
+                                                    fill={shape.fill}
+                                                    shadowBlur={2}
+                                                    scaleX={shape.isDragging ? 1.2 : 1}
+                                                    scaleY={shape.isDragging ? 1.2 : 1}
+
+
+                                                />
+                                                <Text align="center" text={shape.content} fontSize={18} fill={'black'} x={shape.x} y={shape.y + 6} width={shape.width} height={shape.height} ></Text>
+
+                                            </Group>
+
+                                        }
+
+                                    </>
+
+                                ))}
+
+                            </Layer>
+
+
+                            <Layer>
+                                {icons.map((icon) => {
+                                    return <IconURL1 image={icon} />;
+                                })}
+                            </Layer>
+
+                        </Stage>
+
+                    </div>
                 </div>
             </div>
 
             {/* Add simple buttons */}
-            <button style={{ position: "absolute", top: 180, right: 300, backgroundColor: "#48cae4", color: "black", paddingRight: 30, paddingLeft: 30, paddingTop: 10, paddingBottom: 10, border: "none", fontSize: 14 }}
+            <h2 style={{ position: "absolute", top: 120, right: 450, color: "white" }} >Buttons</h2>
+            <button style={{ position: "absolute", top: 180, right: 430, backgroundColor: "#48cae4", color: "black", paddingRight: 30, paddingLeft: 30, paddingTop: 10, paddingBottom: 10, border: "none", fontSize: 14 }}
                 onClick={() => {
                     let temp = shapes;
 
@@ -207,14 +328,31 @@ export default function Tools() {
                     setShapes([...temp])
                 }} >Add button</button>
 
-            <button style={{ position: "absolute", top: 180, right: 150, backgroundColor: "red", color: "white", paddingRight: 30, paddingLeft: 30, paddingTop: 10, paddingBottom: 10, border: "none", fontSize: 14 }}
+            <button style={{ position: "absolute", top: 180, right: 280, backgroundColor: "#fc8621", color: "white", paddingRight: 30, paddingLeft: 30, paddingTop: 10, paddingBottom: 10, border: "none", fontSize: 14 }}
                 onClick={() => {
                     let temp = shapes;
 
                     temp.push({
                         id: shortid.generate(),
                         type: "rect",
-                        fill: "red",
+                        fill: "#fc8621",
+                        x: 100,
+                        y: 40,
+                        width: 100,
+                        height: 30,
+                        content: "Button"
+                    })
+
+                    setShapes([...temp])
+                }} >Add button</button>
+            <button style={{ position: "absolute", top: 180, right: 130, backgroundColor: "#222831", color: "white", paddingRight: 30, paddingLeft: 30, paddingTop: 10, paddingBottom: 10, border: "none", fontSize: 14 }}
+                onClick={() => {
+                    let temp = shapes;
+
+                    temp.push({
+                        id: shortid.generate(),
+                        type: "rect",
+                        fill: "#222831",
                         x: 100,
                         y: 40,
                         width: 100,
@@ -228,26 +366,29 @@ export default function Tools() {
 
             {/* Notes */}
             <Portal>
-                <Layer style={{ position: "absolute", top: 200, left: 400, color: "black" }}>
-                    <Text>*Note that you can drag the buttons to move them in the canvas</Text>
+                <Layer style={{ position: "absolute", top: 120, left: 360, color: "BLACK" }}>
+                    <Text>THIS APP IS UNDER DEVELOPEMENT</Text>
                 </Layer>
-                <Layer style={{ position: "absolute", top: 300, left: 400 }}>
-                    <Text>*Double click on the button to change it's inner text</Text>
+                <Layer style={{ position: "absolute", top: 160, left: 360, color: "#bdbdbd" }}>
+                    <Text><i>*Note that you can drag the buttons<br></br> to move them in the canvas</i></Text>
                 </Layer>
-                <Layer style={{ position: "absolute", top: 400, left: 400 }}>
-                    <Text>*You can choose one of our templates then edit them as you want</Text>
+                <Layer style={{ position: "absolute", top: 230, left: 360, color: "#bdbdbd" }}>
+                    <Text><i>*Double click on the button to change it's inner text</i></Text>
                 </Layer>
-                <Layer style={{ position: "absolute", top: 450, left: 400 }}>
-                    <Text>*You can drag the icon to the canvas</Text>
+                <Layer style={{ position: "absolute", top: 275, left: 360, color: "#bdbdbd" }}>
+                    <Text><i>*You can choose one of our templates<br></br> then edit them as you want</i></Text>
+                </Layer>
+                <Layer style={{ position: "absolute", top: 350, left: 360, color: "#bdbdbd" }}>
+                    <Text><i>*You can drag the icon to the canvas</i></Text>
                 </Layer>
             </Portal>
 
 
 
             {/* Templates */}
-            <h2 style={{ position: "absolute", top: 250, right: 500, color: "black" }} >Templates</h2>
+            <h2 style={{ position: "absolute", top: 250, right: 420, color: "#fff" }} >Templates</h2>
 
-            <button style={{ position: "absolute", top: 320, right: 470, backgroundColor: "yellow", color: "black", paddingRight: 30, paddingLeft: 30, paddingTop: 10, paddingBottom: 10, border: "none", fontSize: 14 }}
+            <button style={{ position: "absolute", top: 310, right: 430, backgroundColor: "#aee6e6", color: "black", paddingRight: 30, paddingLeft: 30, paddingTop: 10, paddingBottom: 10, border: "none", fontSize: 14 }}
                 onClick={() => {
                     let temp = [];
 
@@ -256,19 +397,29 @@ export default function Tools() {
                     temp.push({
                         id: shortid.generate(),
                         type: "rect",
-                        fill: "yellow",
+                        fill: "#e05297",
                         x: 70,
-                        y: 350,
+                        y: 250,
                         width: 100,
                         height: 30,
                         content: 'Login'
                     })
+                    temp.push({
+                        id: shortid.generate(),
+                        type: "rect",
+                        fill: "#fecd1a",
+                        x: 70,
+                        y: 200,
+                        width: 100,
+                        height: 30,
+                        content: 'Sign Up'
+                    })
 
                     setShapes([...temp])
                 }}
-            >Template 1</button>
+            >Home page</button>
 
-            <button style={{ position: "absolute", top: 320, right: 330, backgroundColor: "yellow", color: "black", paddingRight: 30, paddingLeft: 30, paddingTop: 10, paddingBottom: 10, border: "none", fontSize: 14 }}
+            <button style={{ position: "absolute", top: 310, right: 300, backgroundColor: "#aee6e6", color: "black", paddingRight: 30, paddingLeft: 30, paddingTop: 10, paddingBottom: 10, border: "none", fontSize: 14 }}
                 onClick={() => {
                     let temp = [];
                     // let template2 = null;
@@ -278,17 +429,37 @@ export default function Tools() {
                     temp.push({
                         id: shortid.generate(),
                         type: "rect",
-                        fill: "yellow",
-                        x: 70,
-                        y: 250,
-                        width: 100,
+                        fill: "#ec524b",
+                        x: 35,
+                        y: 150,
+                        width: 170,
                         height: 30,
-                        content: 'Login'
+                        content: 'Home'
+                    })
+                    temp.push({
+                        id: shortid.generate(),
+                        type: "rect",
+                        fill: "#f5b461",
+                        x: 35,
+                        y: 200,
+                        width: 170,
+                        height: 30,
+                        content: 'Profile'
+                    })
+                    temp.push({
+                        id: shortid.generate(),
+                        type: "rect",
+                        fill: "#f3eac2",
+                        x: 35,
+                        y: 250,
+                        width: 170,
+                        height: 30,
+                        content: 'App'
                     })
 
                     setShapes([...temp])
                 }}
-            >Template 2</button>
+            >Menu</button>
 
 
 

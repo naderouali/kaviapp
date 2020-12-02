@@ -1,8 +1,10 @@
 body {
-    /* overflow-x: hidden; */
-    /* overflow-y: hidden; */
+    /* overflow-x: hidden;
+    overflow-y: hidden; */
   }
-
+html {
+  background-color: #344073;
+}
 .test{
   /* width: 31vh; */
 }
